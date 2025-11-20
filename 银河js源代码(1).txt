@@ -1,0 +1,77 @@
+// 首先，点击指定的 Follow 按钮
+setTimeout(() => {
+  const followButton = document.querySelector("div.px-4.h-8.rounded-6.border.border-solid.border-border-button.flex.justify-center.items-center.gap-1.cursor-pointer");
+  if (followButton) {
+    const clickFollow = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    followButton.dispatchEvent(clickFollow);
+  }
+}, 1000); // 延迟 1 秒以确保页面加载完成
+
+// 定义任务关键词
+const taskKeywords = [
+  'Follow',      // 用于 Twitter 等关注任务
+  'Visit',       // 用于 Instagram 等访问任务
+  'Tweet',       // 用于 Twitter 发帖任务
+  'Watch Youtube' // 用于 YouTube 观看任务
+];
+
+// 获取所有包含任务内容的 <p> 元素
+const elementsToClick = Array.from(document.querySelectorAll('p')).filter(p =>
+  taskKeywords.some(keyword => p.textContent.includes(keyword))
+);
+
+// 触发点击事件
+elementsToClick.forEach(element => {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true
+  });
+  element.dispatchEvent(event);
+
+  // 处理 "Visit" 事件
+  if (element.textContent.includes('Visit')) {
+    setTimeout(() => {
+      const popupElement = document.querySelector(".w-full.px-7.py-\\[14px\\].sm\\:px-6.sm\\:py-4.bg-white.rounded-8.text-black.text-center.text-size-16.font-semibold.hover\\:bg-gray-200.cursor-pointer");
+      if (popupElement) {
+        const clickPopup = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        });
+        popupElement.dispatchEvent(clickPopup);
+      }
+    }, 500);
+  }
+
+  // 处理 "Tweet" 事件
+  if (element.textContent.includes('Tweet')) {
+    setTimeout(() => {
+      const tweetButton = document.querySelector("#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div.css-175oi2r.r-136ojw6 > div > div > div > div > div.css-175oi2r.r-1pz39u2.r-1777fci.r-15ysp7h.r-obd0qt.r-s8bhmr > div > button:nth-child(2)");
+      if (tweetButton) {
+        const clickTweet = new MouseEvent('click', {
+          view: window,
+          bubbles: true,
+          cancelable: true
+        });
+        tweetButton.dispatchEvent(clickTweet);
+
+        // 关闭推特页面
+        setTimeout(() => {
+          window.close();
+        }, 1000);
+      }
+    }, 1000);
+  }
+
+  // 处理 "Watch Youtube" 事件
+  if (element.textContent.includes('Watch Youtube')) {
+    setTimeout(() => {
+      element.click(); // 点击包含 "Watch Youtube" 的元素
+    }, 500); // 延迟以确保页面元素加载完成
+  }
+});
